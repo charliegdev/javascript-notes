@@ -1,5 +1,12 @@
 # Views
 
+* [Creating a View](#creating-a-view)
+* [`el` Property](#el-property)
+	* [Creating a New Element](#creating-a-new-element)
+	* [Select an Existing Element Using jQuery Selector](#select-an-existing-element-using-jquery-selector)
+* [Apply an Existing Backbone View to a Different DOM Element](#apply-an-existing-backbone-view-to-a-different-dom-element)
+* [`render`() Function](#render-function)
+
 Views in Backbone don't contain the HTML markup for your application; they contain the logic behind the presentation of the model's data to the user. They achieve this using JavaScript templating, for example, Underscore microtemplates.
 
 A view's `render()` method can be bound to a models' `change()` event, enabling the view to instantly reflect model changes without requiring a full page refresh.
@@ -11,6 +18,8 @@ Creating a view is similar to creating a model:
 ```javascript
 var TodoView = Backbone.View.extend({
     tagName: 'li',
+    className: 'container homepage list', // optional, 3 classes added
+    id: 'tools', // optional
 
     // Cache the template function for a single item.
     todoTpl: _.template("An exmaple template"),
