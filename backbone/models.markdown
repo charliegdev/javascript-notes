@@ -1,6 +1,14 @@
 # Backbone Models Quick Reference
 
-Backbone models contain data for an application as well as the logic around its data. For example, we can use a model to represent the concept of a todo item,including its attributes like `title` and `completed`.
+* [Definition and Instantiation](#definition-and-instantiation)
+* [Print a Backbone Object](#print-a-backbone-object)
+	* [`toJSON()`](#tojson)
+	* [`JSON.stringify()`](#jsonstringify)
+* [The Correct Way of Interating with Models: `get()` and `set()`](#the-correct-way-of-interating-with-models-get-and-set)
+	* [`Model.set()`](#modelset)
+* [Validation](#validation)
+
+Backbone models contain data for an application as well as the logic around its data. For example, we can use a model to represent the concept of a todo item, including its attributes like `title` and `completed`.
 
 ## Definition and Instantiation
 
@@ -63,12 +71,10 @@ This method returns a copy of the attributes as an object.
 Example:
 
 ```javascript
-print(todo2);
-
+>>> print(todo2);
 child {cid: "c2", attributes: Object, _changing: false, _previousAttributes: Object, changed: Object…}
 
-print(todo2.toJSON());
-
+>>> print(todo2.toJSON());
 Object {title: "", completed: false}
 ```
 
