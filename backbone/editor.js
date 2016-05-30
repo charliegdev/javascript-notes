@@ -1,93 +1,61 @@
-var TodoView = Backbone.View.extend({
-    tagName: 'li',
-
-    // Cache the template function for a single item.
-    todoTpl: _.template("An exmaple template"),
-
-    events: {
-        'dblclick label': 'edit',
-        'keypress .edit': 'updateOnEnter',
-        'blur .edit': 'close'
-    },
-
-    render: function () {
-        "use strict";
-        this.$el.html(this.todoTpl(this.model.toJSON()));
-        this.input = this.$('.edit');
-        return this;
-    },
-
-    edit: function () {
-        "use strict";
-        // executed when todo lable is double-clicked
-    },
-
-    close: function () {
-        "use strict";
-        // executed when todo loses focus
-    },
-
-    updateOnEnter: function (e) {
-        "use strict";
-        // executed on each keypress when in todo edit mode,
-        // but we'll wait for enter to get in action
-        console.log(e);
+var Todo = Backbone.Model.extend({
+    defaults: {
+        title: '',
+        completed: false
     }
 });
 
-var todoView = new TodoView();
-
-console.log(todoView.el);
-
-
-
-
-var TodosView = Backbone.View.extend({
-    tagName: 'ul', // required, defaults to 'div' if not set
-    className: 'container homepage list', // optional, 3 classes added
-    id: 'tools', // optional
+// define the collection with type of model it holds
+var TodosCollection = Backbone.Collection.extend({
+    model: Todo
 });
 
-// in jQuery, wrap HTML inside a jQuery selector will create that element, 
-// instead of trying to select anything
-var button1 = $('<button></button>'),
-    button2 = $('<button></button>');
 
-// you can assign an 'el' to a view at instantiation
-var todosView = new TodosView({el: button1}); 
-
-todosView.setElement(button2);
-
-
-var ListView= Backbone.View.extend({
-    // compile a template for this view
-    template: _.template($("#list_template").html()),
-
-    render: function () {
-        "use strict";
-        this.$el.html(this.template(this.model.attributes));
-        return this;
-    }
+// define 'add' and 'remove' event listeners
+TodosCollection.on('add', function (todo) {
+    "use strict";
+    console.log('I should ' + todo.get('title') + '. Have I dont it before? ' +
+                (todo.get("completed") ? 'Yeah!': 'No.'));
 });
 
-var ItemView = Backbone.View.extend({
-    events: {},
-    render: function () {
-        "use strict";
-        this.$el.html(this.template(this.model.attributes));
-        return this;
-    }
+TodosCollection.on('remove', function (todo) {
+    "use strict";
+    // things to do when removing an item
 });
 
-// now, reuse the ItemView as a subview:
-var ListView = Backbone.View.extend({
-    render: function() {
-        "use strict";
-        var items = this.model.get('items');
-            // loop through each of our items
-        _.each(items, function (item) {
-            var itemView = new ItemView({model: item});
-            this.$el.append(itemView.render().el);
-        }, this);
-    }
+// collection can listen to 'change' event for any model it contains
+TodosCollection.on('change:title', function (model) {
+    "use strict";
+    console.log('Changed my mind! I should ' + model.get('title'));
 });
+
+
+var myTodo = new Todo({
+    title: 'Read the whole book',
+    id: 2
+});
+
+var todos = new TodosCollection([myTodo]);
+
+console.log(todos.length); // 1
+
+var a = new Todo({title: 'Go to Jamaica.'}),
+    b = new Todo({title: 'Go to Iceland.'}),
+    c = new Todo({title: 'Go to Disneyland.'});
+
+todos = new TodosCollection([a, b]); // length: 2
+todos.add(c); // length: 3
+
+todos.remove([a, b]); // length: 1
+todos.remove(c); // length: 0
+
+
+// remember the myTodo with id of 2
+var todo2 = todos.get(2);
+console.log(todo2 === myTodo); // true
+
+
+
+
+
+

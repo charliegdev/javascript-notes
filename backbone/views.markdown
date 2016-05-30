@@ -1,4 +1,4 @@
-# Views
+# Backbone Views Quick Reference
 
 * [Creating a View](#creating-a-view)
 * [`el` Property](#el-property)
