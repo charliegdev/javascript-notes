@@ -1,5 +1,14 @@
 # Backbone Collections Quick Reference
 
+* [Creation](#creation)
+* [Adding or Removing Models](#adding-or-removing-models)
+* [Retrieving a Model from a Collection](#retrieving-a-model-from-a-collection)
+* [Add Event Listeners](#add-event-listeners)
+* [Only Invoke Callback Once: `once()`](#only-invoke-callback-once-once)
+* [Resetting/Refreshing Collections](#resettingrefreshing-collections)
+	* [`Collection.set()`](#collectionset)
+	* [`Collection.reset()`](#collectionreset)
+
 Collections are sets of Models, and are created by extending `Backbone.Collection`.
 
 Normally, when creating a collection, you'll also want to define a property **specifying the type of model** that your collection will contain, along with **any instance properties required.**
@@ -115,6 +124,8 @@ function stateChanged () {
 }
 ```
 
+However notice that in this form, you add those listeners to the instance variable, not the prototype itself.
+
 ## Only Invoke Callback Once: `once()`
 
 Just like `on()`, but causes the bound callback to fire only once before being removed. Handy for saying *"the next time X happens, do this."*. When multiple events are passed in using the space separated syntax, the evet will fire once for every event, not once for a combination for all events.
@@ -127,7 +138,7 @@ Just like `on()`, but causes the bound callback to fire only once before being r
 
 Documentation entry: 
 
-[`collection.set(models`](http://backbonejs.org/#Collection-set)
+[`collection.set(models)`](http://backbonejs.org/#Collection-set)
 
 ### `Collection.reset()`
 
